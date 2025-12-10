@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block body  %}
+
+<h2>Todo List</h2>
+
+   <div class="container my-9">
+<form action="/" method="POST">
+  <div class="mb-3">
+    <label for="text" class="form-label">Title</label>
+    <input type="text" class="form-control"  name = 'title'id="text" aria-describedby="emailHelp">
+  </div>
+  <div class="mb-3">
+    <label for="text" class="form-label">Description</label>
+    <input type="text" class="form-control" name ='desc' id="text">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% if allTodos|length == 0 %}
+    <div class="alert alert-dark" role="alert">
+        No records yet!
+    </div>
+    {% else %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">SNo</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">date_created</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for todo in allTodos  %}
+    <tr>
+      <th scope="row">{{loop.index}}</th>
+      <td>{{todo.title}}</td>
+      <td>{{todo.desc}}</td>
+      <td>{{todo.date_created}}</td>
+      <td>
+        <a href ='/update/{{todo.sno}}' type="button" class="btn btn-outline-primary">Update</button>
+        <a href ='/delete/{{todo.sno}}' type="button" class="btn btn-outline-danger">Delete</button>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+{% endif %}
+</table>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+{% endblock body %}
